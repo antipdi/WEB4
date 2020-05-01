@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>WEB</title>
+
+    <style>
+        td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function getRandomInt(min, max) {
+            return Number(Math.floor(Math.random() * (max - min))) + Number(min);
+        }
+
+        var arr;
+
+        function myFunc(n) {
+            arr = getArray(n);
+        }
+
+        function getArray(n) {
+            if (isNaN(n)) {
+                alert("Введены некоректные данные в размерность матрицы!");
+                return;
+            }
+            if (n <= 0) {
+                alert("Размерность строго положительное число!");
+                return;
+            }
+            var min = document.getElementById('form').min.value;
+            var max = document.getElementById('form').max.value;
+            if (isNaN(min)) {
+                alert("Введены некоректные данные в минимальное значение!");
+                return;
+            }
+            if (isNaN(max)) {
+                alert("Введены некоректные данные в максимальное значение!");
+                return;
+            }
+            if (Number(min) > Number(max)) {
+                alert("Минимальное значение не может быть больше максимального");
+                return;
+            }
+            // var text = '';
+            var arr = new Array(Number(n));
+
+            var element = document.getElementById('text');
+            element.innerHTML = '';
+            var tb = document.createElement('TABLE');
+            element.appendChild(tb);
+            tb.id = "tablichka";
+            var tbod = document.createElement('TBODY');
+            document.getElementById('tablichka').appendChild(tbod);
+
+            for (var i = 0; i < arr.length; i++) {
+                arr[i] = new Array(Number(n));
+
+                var tr = document.createElement("TR");
+                tbod.appendChild(tr);
+
+                for (var j = 0; j < arr.length; j++) {
+                    //alert(i);
+                    arr[i][j] = getRandomInt(min, max);
+                    //text += arr[i][j] + ' ';
+
+                    var td = document.createElement("TD");
+                    td.innerHTML = arr[i][j];
+                    tr.appendChild(td);
+
+                }
+                // text += '<br>'
+            }
+            //document.getElementById('text').innerHTML = text;
+            document.getElementById('sort').style.visibility = 'visible';
+            return arr;
+        }
+
+        function getResultArray(a) {
+            //document.getElementById('text1').innerHTML = a;
+
+            //создаем одномерный массив
+            var newArr = new Array(a.length * a.length);
+            var count = 0;
+            for (var i = 0; i < a.length; i++) {
+                for (var j = 0; j < a[i].length; j++) {
+                    newArr[count] = Number(a[i][j]);
+                    count++;
+                }
+            }
+            //сортируем его
+            for (var i = 0; i < (newArr.length - 1); i++) {
+                for (var j = 0; j < newArr.length - i - 1; j++) {
+                    if (newArr[j] > newArr[j + 1]) {
+                        var temp = newArr[j + 1];
+                        newArr[j + 1] = newArr[j];
+                        newArr[j] = temp;
+                    }
+                }
+            }
+            //document.getElementById('text2').innerHTML = newArr;
+
+            //снова заполняем двумерный массив 
+            count = 0;
+            for (var j = 0; j < a.length; j++) {
+                if (j % 2 == 0) {
+                    for (var i = a[j].length - 1; i >= 0; i--) {
+                        a[i][j] = newArr[count];
+                        count++;
+                    }
+                }
+                else {
+                    for (var i = 0; i < a[j].length; i++) {
+                        a[i][j] = newArr[count];
+                        count++;
+                    }
+                }
+            }
+
+            var element = document.getElementById('text1');
+            element.innerHTML = '';
+            var tb = document.createElement('TABLE');
+            element.appendChild(tb);
+            tb.id = "tablichka2";
+            var tbod = document.createElement('TBODY');
+            document.getElementById('tablichka2').appendChild(tbod);
+
+            //var text = '';
+            for (var i = 0; i < a.length; i++) {
+                var tr = document.createElement("TR");
+                tbod.appendChild(tr);
+                for (var j = 0; j < a[i].length; j++) {
+                    // text += a[i][j] + '  ';
+                    var td = document.createElement("TD");
+                    td.innerHTML = arr[i][j];
+                    tr.appendChild(td);
+                }
+                //text += '<br>';
+            }
+            //document.getElementById('text1').innerHTML = text;
+            return a;
+        }
+        function cancellation() {
+            document.getElementById('text').innerHTML = '';
+            document.getElementById('sort').style.visibility = 'hidden';
+            document.getElementById('text1').innerHTML = '';
+        }
+    </script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <span class="navbar-brand">Задание 4</span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Задания</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="главная.html"><span>Задание 4.1</span> </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="циклы.html">Задание 4.2</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="массивы.html">Задание 4.3</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Задание 4.4</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br> <br> <br>
+
+    <div class="container">
+        <h1 class="text-center">Функции</h1>
+        <form action="" id="form">
+            <label for="min">Задайте максимальное и минимальное значения для генерации случайного числа </label>
+            <input type="text" class="form-control" name="min" placeholder="Минимальное значение: 0" id="min">
+            <input type="text" class="form-control" name="max" placeholder="Максимальное значение: 0" id="max"> <br>
+            <label for="dim">Укажите размерность матрицы </label>
+            <input type="text" class="form-control" name="dim" placeholder="Размерность матрицы: 0" id="dim">
+            <br>
+            <input class="btn btn-primary" type="button" onclick="myFunc(document.getElementById('form').dim.value);"
+                value="Сгенерировать">
+            <input type="reset" class="btn btn-danger" value="Сбросить" onclick="cancellation()">
+        </form> <br>
+        <div id="text"></div><br>
+        <input class="btn btn-primary" id="sort" type="button" style="visibility: hidden" onclick="getResultArray(arr)"
+            value="Отсортировать"><br> <br>
+        <div id="text1"></div><br>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+
+</html>

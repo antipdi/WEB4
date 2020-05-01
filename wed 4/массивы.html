@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>WEB</title>
+    <style>
+        td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px;
+        }
+    </style>
+
+    <script>
+        var checkForSubtraction = false;
+        var arr = new Array(4);
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = new Array(3);
+        }
+        function ran(form) {
+            var min = form.min.value;
+            var max = form.max.value;
+            if (isNaN(min)) {
+                alert("Введены некоректные данные в минимальное значение!");
+                return;
+            }
+            if (isNaN(max)) {
+                alert("Введены некоректные данные в максимальное значение!");
+                return;
+            }
+            if (Number(min) > Number(max)) {
+                alert("Минимальное значение не может быть больше максимального");
+                return;
+            }
+            max++;
+            var element = document.getElementById('text');
+            element.innerHTML = '';
+            var tb = document.createElement('TABLE');
+            element.appendChild(tb);
+            tb.id = "tablichka";
+            var tbod = document.createElement('TBODY');
+            document.getElementById('tablichka').appendChild(tbod);
+            for (var i = 0; i < arr.length; i++) {
+
+                var tr = document.createElement("TR");
+                tbod.appendChild(tr);
+                for (var j = 0; j < arr[i].length; j++) {
+                    arr[i][j] = Number(Math.floor(Math.random() * (max - min))) + Number(min);
+                    var td = document.createElement("TD");
+                    td.innerHTML = arr[i][j];
+                    tr.appendChild(td);
+                }
+            }
+            document.getElementById('subtract').style.visibility = 'visible';
+        }
+        function subtraction() {
+            if (checkForSubtraction) {
+                if (!confirm("Вы уже вычитали! Хотите вычесть ещё раз?"))
+                    return;
+            }
+            var element = document.getElementById('text1');
+            element.innerHTML = '';
+            var tb = document.createElement('TABLE');
+            element.appendChild(tb);
+            tb.id = "tablichka2";
+            var tbod = document.createElement('TBODY');
+            document.getElementById('tablichka2').appendChild(tbod);
+            var tr = document.createElement("TR");
+            tbod.appendChild(tr);
+            for (var j = 0; j < arr[0].length; j++) {
+                var td = document.createElement("TD");
+                td.innerHTML = arr[0][j];
+                tr.appendChild(td);
+            }
+            for (var i = 1; i < arr.length; i++) {
+                var tr = document.createElement("TR");
+                tbod.appendChild(tr);
+                for (var j = 0; j < arr[i].length; j++) {
+                    arr[i][j] -= arr[0][j];
+                    var td = document.createElement("TD");
+                    td.innerHTML = arr[i][j];
+                    tr.appendChild(td);
+                }
+            }
+            checkForSubtraction = true;
+        }
+        function cancellation() {
+            document.getElementById('text').innerHTML = '';
+            document.getElementById('subtract').style.visibility = 'hidden';
+            document.getElementById('text1').innerHTML = '';
+            checkForSubtraction = false;
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <span class="navbar-brand">Задание 3</span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Задания</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="главная.html"><span>Задание 4.1</span> </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="циклы.html">Задание 4.2</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Задание 4.3</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="функции.html">Задание 4.4</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br> <br> <br>
+
+    <div class="container">
+        <h1 class="text-center">Массивы</h1>
+        <p>Задание: Матрица М состоит из 4 строк, 3 столбцов. Вычесть из всех строк, начиная со второй, первую строку.
+        </p>
+        <form action="" id="form">
+            <label for="min">Сгенерировать рандомные числа в интервале от </label>
+            <input type="text" class="form-control" name="min" placeholder="Минимальное значение: 0" id="min">
+            <label for="max"> до </label>
+            <input type="text" class="form-control" name="max" placeholder="Максимальное значение: 0" id="max"> <br>
+            <input class="btn btn-primary" type="button" onclick="ran(document.getElementById('form'))"
+                value="Сгенерировать">
+            <input type="reset" class="btn btn-danger" value="Сбросить" onclick="cancellation()">
+        </form>
+        <br>
+        <div id="text"></div>
+        <br>
+        <input class="btn btn-primary" id="subtract" type="button" style="visibility: hidden" onclick="subtraction()"
+            value="Вычесть"><br><br>
+        <div id="text1"></div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+
+</html>

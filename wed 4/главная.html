@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>WEB</title>
+
+    <script>
+        function choose() {
+            switch (document.getElementById('formMain').parametr.value) {
+                case '1':
+                    document.getElementById('form1').style.display = 'block';
+                    document.getElementById('form2').style.display = 'none';
+                    document.getElementById('form3').style.display = 'none';
+                    break;
+                case '2':
+                    document.getElementById('form2').style.display = 'block';
+                    document.getElementById('form1').style.display = 'none';
+                    document.getElementById('form3').style.display = 'none';
+                    document.getElementById('dop').style.display = 'none';
+                    break;
+                case '3':
+                    document.getElementById('form3').style.display = 'block';
+                    document.getElementById('form2').style.display = 'none';
+                    document.getElementById('form1').style.display = 'none';
+                    document.getElementById('dop').style.display = 'none';
+                    break;
+                default: alert("Выберете значение!")
+            }
+        }
+        function squareRadius() {
+            var rudius = document.getElementById('form1').text1.value;
+            if (!isNaN(rudius)) {
+                if (rudius < 0) {
+                    alert("Радиус не должен быть отрицаельным!");
+                    return;
+                }
+                document.getElementById('result1').innerHTML = "Площадь фигуры: " + rudius * rudius * Math.PI;
+                document.getElementById('dop').style.display = 'block';
+                document.getElementById('result1_1').innerHTML = "Длина окружности: " + 2 * rudius * Math.PI;
+                document.getElementById('result1_2').innerHTML = "Объём шара: " + 4 * Math.PI * rudius * rudius * rudius / 3;
+                document.getElementById('result1_3').innerHTML = "Площадь поверхности: " + 4 * Math.PI * rudius * rudius;
+            }
+            else alert("Введены некоректные данные!");
+        }
+        function squareDiametr() {
+            var diametr = document.getElementById('form2').text1.value;
+            if (!isNaN(diametr)) {
+                if (diametr < 0) {
+                    alert("Диаметр не должен быть отрицаельным!");
+                    return;
+                }
+                document.getElementById('result2').innerHTML = "Площадь фигуры: " + diametr * diametr * Math.PI / 4;
+            }
+            else alert("Введены некоректные данные!");
+        }
+        function squareDlina() {
+            var dlina = document.getElementById('form3').text1.value;
+            if (!isNaN(dlina)) {
+                if (dlina < 0) {
+                    alert("Длина не должна быть отрицаельной!");
+                    return;
+                }
+                document.getElementById('result3').innerHTML = "Площадь фигуры: " + dlina * dlina / Math.PI / 4;
+            }
+            else alert("Введены некоректные данные!");
+        }
+        function cancellation() {
+            document.getElementById('result1').innerHTML = "Площадь фигуры: ";
+            document.getElementById('result2').innerHTML = "Площадь фигуры: ";
+            document.getElementById('result3').innerHTML = "Площадь фигуры: ";
+            document.getElementById('dop').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <span class="navbar-brand">Задание 1</span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Задания</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="#"><span>Задание 4.1</span> </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="циклы.html">Задание 4.2</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="массивы.html">Задание 4.3</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="функции.html">Задание 4.4</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br> <br> <br>
+    <div class="container">
+        <h1 class="text-center">Вычисление площади круга</h1>
+        $$\large S = &pi;R^2$$
+        $$\large S = \large\frac{lR}{2} = \large\frac{l^2}{4&pi;} $$
+        $$\large S = \large\frac {&pi;d^2}{4} $$
+        <h3>Выберете известный вам параметр</h3>
+        <form action="" id="formMain">
+            <input type="radio" name="parametr" id="radius" value="1" onclick="choose()"><label for="radius">Радиус</label><br>
+            <input type="radio" name="parametr" id="diametr" value="2"onclick="choose()"><label for="diametr">Диаметр</label><br>
+            <input type="radio" name="parametr" id="dlina" value="3"onclick="choose()"><label for="dlina">Длина окружности</label><br><br>
+            <input class="btn btn-primary" type="button" onclick="choose()" value="Выбрать">
+        </form>
+        <br>
+        <form action="" id="form1" style="display: none;">
+            <label for="text1">Введите радиус окружности:</label><br>
+            <input type="text" class="form-control" name="text1" placeholder="Радиус окружности: 0" id="text1">
+            <span id="result1">Площадь фигуры: </span> <br><br>
+            <input class="btn btn-success" type="button" onclick="squareRadius()" value="Готово">
+            <input type="reset" class="btn btn-danger" value="Сбросить" onclick="cancellation()">
+        </form>
+        <form action="" id="form2" style="display: none;">
+            <label for="text2">Введите диаметр окружности:</label><br>
+            <input type="text" class="form-control" name="text1" placeholder="Диаметр окружности: 0" id="text2">
+            <span id="result2">Площадь фигуры: </span> <br><br>
+            <input class="btn btn-success" type="button" onclick="squareDiametr()" value="Готово">
+            <input type="reset" class="btn btn-danger" value="Сбросить" onclick="cancellation()">
+        </form>
+        <form action="" id="form3" style="display: none;">
+            <label for="text3">Введите длину окружности:</label><br>
+            <input type="text" class="form-control" name="text1" placeholder="Длина окружности: 0" id="text3">
+            <span id="result3">Площадь фигуры: </span> <br><br>
+            <input class="btn btn-success" type="button" onclick="squareDlina()" value="Готово">
+            <input type="reset" class="btn btn-danger" value="Сбросить" onclick="cancellation()">
+        </form>
+    </div>
+
+    <div class="container" id="dop" style="display: none;">
+        <h3 class="text-center">Дополнительная информация</h3>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            Длина окружности
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <span id="result1_1"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            Объём шара
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <span id="result1_2"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                            aria-expanded="false" aria-controls="collapseThree">
+                            Площадь поверхности шара
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        <span id="result1_3"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+
+</html>
